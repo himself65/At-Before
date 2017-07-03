@@ -8,6 +8,37 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="MenuButton" Grid.Row="0" Grid.Column="0" Height="60" Width="60" Click="MenuButton_Click">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" FontSize="28"/>
+        </Button>
+        <!--SplitView视图-->
+        <SplitView Name="HambugerView" Grid.Row="1" Grid.ColumnSpan="2" OpenPaneLength="300" DisplayMode="CompactOverlay" CompactPaneLength="60" >
+            <SplitView.Pane>
+                <ListBox >
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" Width="30" Height="30" FontSize="24" Margin="5,0,30,0"/>
+                            <TextBlock Text="主页" FontSize="24"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem></ListBoxItem>
+                    <ListBoxItem></ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame>
+                    
+                </Frame>
+            </SplitView.Content>
+        </SplitView>
     </Grid>
 </Page>

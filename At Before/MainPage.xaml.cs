@@ -26,5 +26,10 @@ namespace At_Before
         {
             this.InitializeComponent();
         }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            HambugerView.IsPaneOpen = !HambugerView.IsPaneOpen;
+        }
     }
 }
