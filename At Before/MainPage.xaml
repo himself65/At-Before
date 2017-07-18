@@ -7,37 +7,93 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState>
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="0"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="MainShowBlock.Text" Value="Hello,world1"/>
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+
+        <VisualStateGroup>
+            <VisualState>
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="700"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="MainShowBlock.Text" Value="Hello,world2"/>
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Button Name="MenuButton" Grid.Row="0" Grid.Column="0" Height="60" Width="60" Click="MenuButton_Click">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" FontSize="28"/>
-        </Button>
-        <!--SplitView视图-->
-        <SplitView Name="HambugerView" Grid.Row="1" Grid.ColumnSpan="2" OpenPaneLength="300" DisplayMode="CompactOverlay" CompactPaneLength="60" >
+        <SplitView Name="HambugerSplitView" DisplayMode="CompactOverlay" CompactPaneLength="60" OpenPaneLength="400">
             <SplitView.Pane>
-                <ListBox >
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" Width="30" Height="30" FontSize="24" Margin="5,0,30,0"/>
-                            <TextBlock Text="主页" FontSize="24"/>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem></ListBoxItem>
-                    <ListBoxItem></ListBoxItem>
-                </ListBox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <RelativePanel Grid.Row="0" >
+                            <Button Name="MenuButton"  Height="55" Width="60" Click="MenuButton_Click" RelativePanel.AlignLeftWithPanel="True" Margin="0,0,10,0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
+                            </Button>
+                            <TextBlock Name="MainShowBlock" Margin="5,0,0,0" Text="欢迎" RelativePanel.RightOf="MenuButton" RelativePanel.AlignVerticalCenterWith="MenuButton"/>
+                        </RelativePanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ListBox Name="MenuList" SelectionChanged="MenuList_SelectionChanged">
+
+                            <ListBoxItem Name="AboutMe">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon Style="{StaticResource IconStyle}" 
+                                              Glyph="&#xE13D;" 
+                                              Margin="5,0,30,0"/>
+                                    <TextBlock Text="我的"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            
+                            <ListBoxItem Name="Home">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon Style="{StaticResource IconStyle}"
+                                              Glyph="&#xE10F;" 
+                                              Margin="5,0,30,0"/>
+                                    <TextBlock Text="主页"/>
+                                </StackPanel>
+                            </ListBoxItem>
+
+                        </ListBox>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <ListBox x:Name="SettingList">
+                            <ListBoxItem x:Name="SettingItem" Tapped="SettingItem_Tapped">
+                                <RelativePanel>
+                                    <FontIcon Style="{StaticResource IconStyle}" 
+                                              Name="SettingIcon" 
+                                              Glyph="&#xE115;" 
+                                              Margin="5,0,10,0"/>
+                                    <TextBlock Text="设置" RelativePanel.RightOf="SettingIcon" Margin="20,0,0,0"/>
+                                </RelativePanel>
+                            </ListBoxItem>
+                        </ListBox>
+                    </Grid>
+                </Grid>
             </SplitView.Pane>
+
+            <!--主要视图-->
             <SplitView.Content>
-                <Frame>
-                    
-                </Frame>
+                <Frame Name="FirstFrame" />
             </SplitView.Content>
         </SplitView>
     </Grid>

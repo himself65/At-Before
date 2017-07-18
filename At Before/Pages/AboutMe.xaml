@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="At_Before.Pages.AboutMe"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:At_Before.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Load">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Pivot Grid.Row="0" VerticalAlignment="Top">
+            <PivotItem Name="Me" Header="我">
+                <Grid>
+                    <Image Name="background" Source="ms-appx:///Assets/yangyan.jpeg"/>
+                    <ScrollViewer Name="myScroller" ViewChanged="myScroller_ViewChanged">
+                        <TextBlock TextWrapping="Wrap" Foreground="DarkGray">
+                            Himself65
+                            <LineBreak/>
+                            下面是复制内容
+                            <LineBreak/>
+                            <LineBreak/>
+                            透视表模式
+                            <LineBreak/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            在使用透视表生成应用时，有一些关键设计变量需要考虑。
+                            <LineBreak/>
+                            标题标签。 标题可以是带有文本的图标、纯图标或纯文本。<LineBreak/>
+                            标题对齐方式。 标题可以左对齐，也可以居中对齐。<LineBreak/>
+                            顶级或次级导航。 透视表可以用于任一级别的导航。 （可选）导航窗格可充当主要级别，而透视表可作为辅助级别。<LineBreak/>
+                            触摸手势支持。 对于支持触摸手势的设备，你可以使用以下两组交互之一在不同的内容类别之间进行导航：<LineBreak/>
+                            点击表/透视表标题以导航到该类别。<LineBreak/>
+                            在内容区域上向左或向右轻扫，以导航到相邻类别。<LineBreak/>
+                            透视表项目<LineBreak/>
+                            透视表是一个 ItemsControl，因此可以包含任何类型的项目集合。 你添加到透视表的任何非显式 PivotItem 的项目都隐式包装在 PivotItem 中。 由于透视表经常用于在内容页面之间导航，因此通常使用 XAML UI 元素直接填充 Items 集合。 或者，你可以将 ItemsSource 属性设置为数据源。 ItemsSource 中绑定的项目可以属于任何类型，但如果它们不是显式 PivotItems，则必须定义 ItemTemplate 和 HeaderTemplate 来指定这些项目的显示方式。<LineBreak/>
+                            你可以使用 SelectedItem 属性获取或设置透视表的活动项目。 使用 SelectedIndex 属性获取或设置活动项目的索引。<LineBreak/>
+                            透视表标题<LineBreak/>
+
+                            你可以使用 LeftHeader 和 RightHeader 属性将其他控件添加到透视表标题。<LineBreak/>
+                            <LineBreak/>
+                            透视表交互
+
+                            <LineBreak/>该控件的特色之处在于以下触摸手势交互：
+                            <LineBreak/>通过点击透视表项目标题，可导航到该标题的部分内容。
+                           <LineBreak/>通过在透视表项目标题上向左或向右轻扫，可导航到相邻部分。
+                           <LineBreak/>通过在部分内容上向左或向右轻扫，可导航到相邻部分。
+                        </TextBlock>
+                    </ScrollViewer>
+                </Grid>
+
+            </PivotItem>
+
+            <PivotItem Name="Latest" Header="最近"/>
+        </Pivot>
+        <Button Height="55" Width="60" 
+                Grid.Row="1"
+                Content="测试"/>
+    </Grid>
+</Page>

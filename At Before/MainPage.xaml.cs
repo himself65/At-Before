@@ -1,10 +1,12 @@
-﻿using System;
+﻿using At_Before.Sources;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,11 +27,61 @@ namespace At_Before
         public MainPage()
         {
             this.InitializeComponent();
+
+            //FirstFrame.Navigate(typeof(At_Before.Pages.HelloPage));
+        }
+
+        private void NavLinksList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            HambugerView.IsPaneOpen = !HambugerView.IsPaneOpen;
+            HambugerSplitView.IsPaneOpen = !HambugerSplitView.IsPaneOpen;
         }
+
+        private void MenuList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SettingList.SelectedItem = null;
+            if (Home.IsSelected)
+            {
+                FirstFrame.Navigate(typeof(Pages.HomePage));
+                MainShowBlock.Text = ("主页");
+            }
+            else if (AboutMe.IsSelected)
+            {
+                FirstFrame.Navigate(typeof(Pages.AboutMe));
+                MainShowBlock.Text = ("我");
+            }
+            HambugerSplitView.IsPaneOpen = false;
+
+        }
+
+        private void SettingItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            MenuList.SelectedItem = null;
+            SettingList.SelectedIndex = 0;
+            FirstFrame.Navigate(typeof(At_Before.Pages.SettingPage));
+        }
+
+        private void Page_Loading(FrameworkElement sender, object args)
+        {
+
+        }
+
+        //private void MenuButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    HambugerView.IsPaneOpen = !HambugerView.IsPaneOpen;
+        //}
+
+
+        //private void ArrowLeftButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (FirstFrame.CanGoBack)
+        //    {
+        //        FirstFrame.GoBack();
+        //    }
+        //}
     }
 }
