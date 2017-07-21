@@ -7,32 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState>
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="0"/>
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="MainShowBlock.Text" Value="Hello,world1"/>
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
+    <Page.Resources>
+        <ResourceDictionary Source="/Style/MainDictionary.xaml"/>
+    </Page.Resources>
 
-        <VisualStateGroup>
-            <VisualState>
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="700"/>
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="MainShowBlock.Text" Value="Hello,world2"/>
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView Name="HambugerSplitView" DisplayMode="CompactOverlay" CompactPaneLength="60" OpenPaneLength="400">
+    <Grid>
+        <SplitView Name="HambugerSplitView" 
+                   DisplayMode="CompactOverlay" 
+                   CompactPaneLength="60" 
+                   OpenPaneLength="400">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>

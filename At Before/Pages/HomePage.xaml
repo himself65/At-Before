@@ -11,26 +11,127 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <ResourceDictionary Source="/MainDictionary.xaml" />
+        <ResourceDictionary Source="/Style/MainDictionary.xaml" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
             Orientation="Vertical">
             <RelativePanel>
-                <Button RelativePanel.AlignRightWithPanel="True"
-                    Style="{StaticResource HambugerButton}">
+                <Button Name="EditButton"
+                        RelativePanel.LeftOf="UpdateButton" 
+                        Style="{StaticResource HambugerButton}"
+                        ToolTipService.ToolTip="编辑"
+                        Click="EditButton_Click"
+                        Visibility="Collapsed">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE104;" />
+                    <Button.Flyout>
+                        <Flyout Placement="Bottom">
+                            <StackPanel>
+                                <Grid Name="EditGrid">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <TextBlock Text="标题：" Margin="0,0,10,0"/>
+                                        <TextBox Name="ChangeInputTitleBox" 
+                                         Text="" 
+                                         Width="Auto" 
+                                         TextChanged="InputTitleBox_TextChanged"/>
+                                        <TextBlock Name="JudgeChangeInputTitleBox" Text="" Visibility="Collapsed" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                        <TextBlock Text="日期：" Margin="0,0,10,0"/>
+                                        <DatePicker Name="ChangeInputDatePicker"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="时间：" Margin="0,0,10,0"/>
+                                            <TimePicker Name="ChangeInputTimePicker" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                        <CheckBox Name="ChangeInputTimeCheckBox"
+                                                  Margin="0,0,10,0" Content="全天"
+                                                  Checked="InputTimeCheckBox_Checked"
+                                                  Unchecked="InputTimeCheckBox_Unchecked"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                        <TextBlock Text="类型：" Margin="0,0,10,0"/>
+                                        <ComboBox Name="ChangeInputClassIficationBox"
+                                          Width="250"
+                                    ItemsSource="{x:Bind ClassificationItems}" Loaded="InputClassIficationBox_Loaded">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate x:DataType="data:Classification">
+                                                    <TextBlock Text="{x:Bind _Case_cn}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                        <TextBlock Text="重复：" Margin="0,0,10,0"/>
+                                        <ComboBox Name="ChangeInputRepeatCaseBox"
+                                                  Width="250"
+                                                  Loaded="InputRepeatCaseBox_Loaded"
+                                                  SelectionChanged="InputRepeatCaseBox_SelectionChanged"
+                                                  ItemsSource="{x:Bind RepeatCaseItems}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate x:DataType="data:Repeat">
+                                                    <TextBlock Text="{x:Bind _Case_cn}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                                        <Button Grid.Row="5"
+                                                Name="EditFinishedButton"
+                                                Content="完成" 
+                                                HorizontalAlignment="Left" 
+                                                ClickMode="Release"
+                                                Click="EditFinishedButton_Click"
+                                                Margin="0,0,5,0"
+                                            />
+                                        <Button Name="DeleteButton"
+                                                Content="删除"
+                                                ClickMode="Release"
+                                                Click="DeleteButton_Click">
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <!--更新控件，按下推送到磁贴-->
+                <Button Name="UpdateButton"
+                    RelativePanel.LeftOf="InputButton"
+                        Click="UpdateButton_Click"
+                    Style="{StaticResource HambugerButton}" 
+                        ToolTipService.ToolTip="更新到磁贴">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" />
+                </Button>
+                
+                <!--输入控件，按下可以添加提醒项-->
+                <Button Name="InputButton"
+                        ToolTipService.ToolTip="添加倒计时"
+                        RelativePanel.AlignRightWithPanel="True"
+                        Style="{StaticResource HambugerButton}" >
                     <FontIcon Style="{StaticResource IconStyle}"
                 FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                    <!---->
                     <Button.Flyout>
                         <Flyout Placement="Bottom">
                             <StackPanel>
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -49,7 +150,17 @@
                                         <TextBlock Text="日期：" Margin="0,0,10,0"/>
                                         <DatePicker Name="InputDatePicker"/>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <StackPanel Grid.Row="2" Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="时间：" Margin="0,0,10,0"/>
+                                            <TimePicker Name="InputTimePicker" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                        <CheckBox Name="InputTimeCheckBox"
+                                                  Margin="0,0,10,0" Content="全天"
+                                                  Checked="InputTimeCheckBox_Checked"
+                                                  Unchecked="InputTimeCheckBox_Unchecked"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
                                         <TextBlock Text="类型：" Margin="0,0,10,0"/>
                                         <ComboBox Name="InputClassIficationBox"
                                           Width="250"
@@ -61,7 +172,7 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
                                         <TextBlock Text="重复：" Margin="0,0,10,0"/>
                                         <ComboBox Name="InputRepeatCaseBox"
                                                   Width="250"
@@ -75,13 +186,13 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
-                                    <Button Grid.Row="4"
-                                Name="CountdownItemFinishedButton"
-                                    Content="完成" 
-                                    HorizontalAlignment="Left" 
-                                    ClickMode="Release"
-                                    Click="CountdownItemFinishedButton_Click"
-                                    Loaded="CountdownItemFinishedButton_Loaded"
+                                    <Button Grid.Row="5"
+                                            Name="CountdownItemFinishedButton"
+                                            Content="完成" 
+                                            HorizontalAlignment="Left" 
+                                            ClickMode="Release"
+                                            Click="CountdownItemFinishedButton_Click"
+                                            IsEnabled="False"
                                             />
                                 </Grid>
                             </StackPanel>
@@ -90,9 +201,13 @@
                 </Button>
 
             </RelativePanel>
-            <ListView
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <ListView Name="OutputListView"
                 ItemsSource="{x:Bind CountdownList}" 
-                SelectionMode="None">
+                SelectionMode="Single"
+                      SelectionChanged="OutputListView_SelectionChanged"
+                      >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Countdown">
                         <StackPanel Orientation="Horizontal">
@@ -101,16 +216,11 @@
                             <TextBlock Text="{x:Bind Date.Month}" Margin="0,0,5,0"/>
                             <TextBlock Text="{x:Bind Date.Day}" Margin="0,0,10,0"/>
                             <TextBlock Text="{x:Bind Classification._Case_cn}"/>
+                            <TextBlock Text="{x:Bind EndLine}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
-        <RelativePanel Grid.Row="1">
-            <Button Style="{StaticResource HambugerButton}" 
-                    RelativePanel.AlignRightWithPanel="True">
-                
-            </Button>
-        </RelativePanel>
+        </ScrollViewer>
     </Grid>
 </Page>

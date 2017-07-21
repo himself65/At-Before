@@ -8,7 +8,6 @@ using System.IO;
 
 namespace At_Before.Sources
 {
-    
     public class Countdown
     {
         public int ID { get; set; }
@@ -16,6 +15,7 @@ namespace At_Before.Sources
         public DateTimeOffset Date { get; set; }
         public Classification Classification { get; set; }
         public Repeat Repeat { get; set; }
+        public TimeSpan EndLine { get => Date - DateTimeOffset.Now; }
     }
     public class Classification
     {
@@ -54,7 +54,7 @@ namespace At_Before.Sources
         public RepeatCase Case { get; set; }
         public string _Case { get => Enum.Format(typeof(RepeatCase), Case, "G"); }
         public string _Case_cn { get => Translation[Convert.ToInt32(Case)]; }
-        private static string[] Translation = { "不重复", "每年", "每月", "每周" };
+        private static string[] Translation = { "不重复", "每周", "每月", "每年" };
         
         public Repeat(RepeatCase Case)
         {
@@ -62,6 +62,9 @@ namespace At_Before.Sources
         }
     }
 
+    /// <summary>
+    /// Enum数据
+    /// </summary>
     public enum ClassificationCase
     {
         Event,
@@ -77,8 +80,8 @@ namespace At_Before.Sources
     public enum RepeatCase
     {
         None,
-        EveryYear,
+        EveryWeek,
         EveryMonth,
-        EveryWeek
+        EveryYear,
     };
 }

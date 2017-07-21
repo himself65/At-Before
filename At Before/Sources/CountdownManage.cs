@@ -80,7 +80,32 @@ namespace At_Before.Sources
             }
         }
 
+        public static void DeleteCountdownFromList(Countdown DeleteItem)
+        {
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+
+            ApplicationDataContainer CountdownsSettings = localSettings.CreateContainer("Data", ApplicationDataCreateDisposition.Always);
+            if (localSettings.Containers.ContainsKey("Data"))
+            {
+                if (DeleteItem != null)
+                    if (CountdownsSettings.Containers.ContainsKey(Convert.ToString(DeleteItem.ID)))
+                    {
+                        CountdownsSettings.DeleteContainer(Convert.ToString(DeleteItem.ID));
+                    }
+                    else
+                        throw new Exception();
+                else
+                    throw new NullReferenceException();
+            }
+        }
+
+
+        /// <summary>
+        /// 基本不会变的代码
+        /// </summary>
+        /// <returns></returns>
         public static List<Classification> GetClassifications()
         {
             List<Classification> Classifications = new List<Classification>
@@ -97,7 +122,6 @@ namespace At_Before.Sources
             };
             return Classifications;
         }
-        
         public static List<Repeat> GetRepeats()
         {
             List<Repeat> Repeats = new List<Repeat>()

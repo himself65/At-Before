@@ -5,6 +5,12 @@
     xmlns:local="using:At_Before"
     RequestedTheme="Light">
     <Application.Resources>
-        <ResourceDictionary Source="MainDictionary.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light" Source="/Style/LightDictionary.xaml"/>
+                <ResourceDictionary x:Key="Dark" Source="/Style/DarkDictionary.xaml"/>
+                <ResourceDictionary x:Key="Main" Source="/Style/MainDictionary.xaml"/>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

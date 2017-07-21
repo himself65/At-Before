@@ -47,12 +47,10 @@ namespace At_Before
             if (Home.IsSelected)
             {
                 FirstFrame.Navigate(typeof(Pages.HomePage));
-                MainShowBlock.Text = ("主页");
             }
             else if (AboutMe.IsSelected)
             {
                 FirstFrame.Navigate(typeof(Pages.AboutMe));
-                MainShowBlock.Text = ("我");
             }
             HambugerSplitView.IsPaneOpen = false;
 
@@ -69,19 +67,5 @@ namespace At_Before
         {
 
         }
-
-        //private void MenuButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    HambugerView.IsPaneOpen = !HambugerView.IsPaneOpen;
-        //}
-
-
-        //private void ArrowLeftButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (FirstFrame.CanGoBack)
-        //    {
-        //        FirstFrame.GoBack();
-        //    }
-        //}
     }
 }

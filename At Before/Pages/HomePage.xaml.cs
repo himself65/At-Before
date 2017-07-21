@@ -33,12 +33,12 @@ namespace At_Before.Pages
         List<Classification> ClassificationItems;
         List<Repeat> RepeatCaseItems;
         ObservableCollection<Countdown> CountdownList;
-#endregion
+        #endregion
         public HomePage()
         {
             this.InitializeComponent();
-            applicationData = ApplicationData.Current;
-            roamingSettings = applicationData.LocalSettings;
+            //applicationData = ApplicationData.Current;
+            //roamingSettings = applicationData.LocalSettings;
             ClassificationItems = CountdownManage.GetClassifications();
             RepeatCaseItems = CountdownManage.GetRepeats();
         }
@@ -46,7 +46,7 @@ namespace At_Before.Pages
         private void CountdownItemFinishedButton_Click(object sender, RoutedEventArgs e)
         {
             //如果输入错误
-            if (InputTitleBox.Text.Length <= 2 || InputClassIficationBox.SelectedIndex == -1 || InputDatePicker.Date == null) 
+            if (InputTitleBox.Text.Length < 1 || InputClassIficationBox.SelectedIndex == -1 || InputRepeatCaseBox.SelectedIndex == -1 || InputDatePicker.Date == null) 
             {
                 Flyout flyerror = new Flyout();
                 TextBlock texterror = new TextBlock()
@@ -77,15 +77,11 @@ namespace At_Before.Pages
             var InputBox = (TextBox)sender;
             string InputString = InputBox.Text;
             bool isEmptyOrNull = string.IsNullOrEmpty(InputString);
-            bool InputIsShort = false;
-            if (InputString.Length <= 2)
-                InputIsShort = true;
 
-            bool InputError = isEmptyOrNull || InputIsShort;
+
+            bool InputError = isEmptyOrNull;
             if (InputError)
             {
-                if (InputIsShort)
-                    JudgeInputTitleBox.Text = "输入内容过短（不得小于两个字），请重新输入";
                 if (isEmptyOrNull)
                     JudgeInputTitleBox.Text = "标题不能为空";
 
@@ -97,11 +93,6 @@ namespace At_Before.Pages
                 JudgeInputTitleBox.Visibility = Visibility.Collapsed;
                 CountdownItemFinishedButton.IsEnabled = true;
             }
-        }
-
-        private void CountdownItemFinishedButton_Loaded(object sender, RoutedEventArgs e)
-        {
-            CountdownItemFinishedButton.IsEnabled = false;
         }
 
         private void InputClassIficationBox_Loaded(object sender, RoutedEventArgs e)
@@ -148,6 +139,88 @@ namespace At_Before.Pages
                 default:
                     throw new Exception("Error");
             }
+        }
+
+        /// <summary>
+        /// 是否需要输入时间
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputTimeCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            InputTimePicker.IsEnabled = false;
+        }
+        private void InputTimeCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            InputTimePicker.IsEnabled = true;
+        }
+        //
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            TitleUpdateManage.UpdateTitle(CountdownList);
+        }
+        /// <summary>
+        /// 编辑菜单下的完成按键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void EditGrid_Loading(FrameworkElement sender, object args)
+        {
+        }
+
+        private void EditFinishedButton_Click(object sender, RoutedEventArgs e)
+        {
+            Countdown NewOne = new Countdown()
+            {
+                ID = CountdownList[OutputListView.SelectedIndex].ID,
+                Date = ChangeInputDatePicker.Date + ChangeInputTimePicker.Time,
+                Title = ChangeInputTitleBox.Text,
+                Classification = (Classification)ChangeInputClassIficationBox.SelectedItem,
+                Repeat = (Repeat)ChangeInputRepeatCaseBox.SelectedItem,
+            };
+            CountdownList[OutputListView.SelectedIndex] = NewOne;
+            CountdownManage.SaveCountdowns(CountdownList);
+
+            EditButton.Flyout.Hide();
+            EditButton.Visibility = Visibility.Collapsed;
+        }
+
+#region EditFinishedButton的flyout控件
+        /// <summary>
+        /// 此控件将内容写到flyout编辑
+        /// 完成按键是EditFinishedButton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            var Item = (Countdown)OutputListView.SelectedItem;
+            if (Item == null)
+                return;
+            ChangeInputDatePicker.Date = Item.Date;
+            ChangeInputTimePicker.Time = Item.Date.Offset;
+            ChangeInputTitleBox.Text = Item.Title;
+
+            ChangeInputClassIficationBox.SelectedIndex = (int)Item.Classification.Case;
+            ChangeInputRepeatCaseBox.SelectedIndex = (int)Item.Repeat.Case;
+        }
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (OutputListView.SelectedItem == null)
+                return;
+            var DeleteItem = CountdownList[OutputListView.SelectedIndex];
+
+            CountdownManage.DeleteCountdownFromList(DeleteItem);
+
+            CountdownList.RemoveAt(OutputListView.SelectedIndex);
+        }
+#endregion
+
+        private void OutputListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EditButton.Visibility = Visibility.Visible;
         }
     }
 }
