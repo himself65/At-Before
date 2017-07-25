@@ -15,6 +15,27 @@ namespace CountdownClass
         public Classification Classification { get; set; }
         public Repeat Repeat { get; set; }
         public TimeSpan EndLine { get => Date - DateTimeOffset.Now; }
+        public double EndLineToDays { get => (Date - DateTimeOffset.Now).TotalDays; }
+        public string EndLineToStringOfDays { get => ToStringOfDays(EndLineToDays); }
+
+        public static string ToStringOfDays(double Days)
+        {
+            string Content = String.Empty;
+            if ((int)Days < Days)
+            {
+                Content = "不到" + (int)Days;
+                if ((int)Days <= 0)
+                {
+                    Content = "不到1";
+                }
+            }
+            else
+            {
+                Content = "大约" + (int)Days;
+            }
+
+            return Content;
+        }
     }
     public class Classification
     {
