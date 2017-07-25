@@ -5,11 +5,18 @@
     xmlns:local="using:At_Before.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" 
+    Unloaded="Page_UnLoad">
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="This's setting page" FontSize="20"/>
-        <ToggleSwitch/>
-        <ToggleSwitch Name="PasswordToggleSwitch" Toggled="PasswordToggleSwitch_Toggled"  />
-    </StackPanel>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0">
+            <TextBlock Name="TileQueueSettingTextblock" Text="是否循环显示倒计时（最多显示五张）" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ToggleSwitch Name="PasswordToggleSwitch" RelativePanel.RightOf="TileQueueSettingTextblock"/>
+        </RelativePanel>
+        <Button Grid.Row="1" Content="Hello" Click="Button_Click"/>
+    </Grid>
 </Page>

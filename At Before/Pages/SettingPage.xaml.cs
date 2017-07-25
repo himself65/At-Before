@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -25,40 +26,53 @@ namespace At_Before.Pages
     {
 
         ApplicationData applicationData = null;
-        ApplicationDataContainer roamingSettings = null;
-
+        ApplicationDataContainer localSettings = null;
         public SettingPage()
         {
             this.InitializeComponent();
             applicationData = ApplicationData.Current;
-            roamingSettings = applicationData.RoamingSettings;
-
+            localSettings = ApplicationData.Current.LocalSettings;
+            DisplayOutPut();
         }
 
         private void DisplayOutPut()
         {
-
+            PasswordToggleSwitch.IsOn = (bool)localSettings.Values["testSetting"];
         }
 
-        private void PasswordToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+
+        private void Page_UnLoad(object sender, RoutedEventArgs e)
         {
-            //设置Flyout内容
-            if (PasswordToggleSwitch.IsOn == true)
-            {
-                Flyout f = new Flyout();
-                TextBlock HavenotFinished = new TextBlock();
-                HavenotFinished.Text = "暂未开发完成";
-                f.Content = HavenotFinished;
-                f.Placement = FlyoutPlacementMode.Bottom;
-                //显示未完成
-                f.ShowAt(PasswordToggleSwitch);
-                f.Closed += Flyout_Closed;
-            }
+            localSettings = ApplicationData.Current.LocalSettings;
+            localSettings.Values["testSetting"] = PasswordToggleSwitch.IsOn;
         }
 
-        private void Flyout_Closed(object sender, object e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PasswordToggleSwitch.IsOn = false;
+            BackgroundTasks.BlogFeedBackgroundTask.RunNow();
         }
+
+        //private void PasswordToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        //{
+        //    //设置Flyout内容
+        //    if (PasswordToggleSwitch.IsOn == true)
+        //    {
+        //        Flyout f = new Flyout();
+        //        TextBlock HavenotFinished = new TextBlock()
+        //        {
+        //            Text = "暂未开发完成"
+        //        };
+        //        f.Content = HavenotFinished;
+        //        f.Placement = FlyoutPlacementMode.Bottom;
+        //        //显示未完成
+        //        f.ShowAt(PasswordToggleSwitch);
+        //        f.Closed += Flyout_Closed;
+        //    }
+        //}
+
+        //private void Flyout_Closed(object sender, object e)
+        //{
+        //    PasswordToggleSwitch.IsOn = false;
+        //}
     }
 }

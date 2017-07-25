@@ -5,9 +5,11 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -107,7 +109,7 @@ namespace At_Before
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }
-        
+
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
             // Each time a navigation event occurs, update the Back button's visibility

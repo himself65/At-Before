@@ -38,7 +38,7 @@
                     <Grid Grid.Row="1">
                         <ListBox Name="MenuList" SelectionChanged="MenuList_SelectionChanged">
 
-                            <ListBoxItem Name="AboutMe">
+                            <ListBoxItem Name="AboutMe" Visibility="Collapsed">
                                 <StackPanel Orientation="Horizontal">
                                     <FontIcon Style="{StaticResource IconStyle}" 
                                               Glyph="&#xE13D;" 

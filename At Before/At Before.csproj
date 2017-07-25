@@ -102,9 +102,6 @@
     <Compile Include="Pages\AboutMe.xaml.cs">
       <DependentUpon>AboutMe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddButton.xaml.cs">
-      <DependentUpon>AddButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -112,10 +109,6 @@
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sources\Countdown.cs" />
-    <Compile Include="Sources\CountdownManage.cs" />
-    <Compile Include="Sources\TitleUpdate.cs" />
-    <Compile Include="Sources\TitleUpdateManage.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -125,13 +118,22 @@
     <None Include="At Before_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Tile\TileText.xml" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\PackageLogo.scale-100.png" />
+    <Content Include="Assets\PackageLogo.scale-125.png" />
+    <Content Include="Assets\PackageLogo.scale-150.png" />
+    <Content Include="Assets\PackageLogo.scale-200.png" />
+    <Content Include="Assets\PackageLogo.scale-400.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -162,6 +164,11 @@
     <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -177,10 +184,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\AddButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Style\DarkDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,9 +220,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.3.3</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>1.5.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
@@ -229,7 +229,19 @@
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BackgroundTasks\BackgroundTasks.csproj">
+      <Project>{ce9c12ae-5708-4b10-a441-6fc894963a3a}</Project>
+      <Name>BackgroundTasks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CountdownClass\CountdownClass.csproj">
+      <Project>{dcc1ffba-955e-48a8-a102-078046b40d64}</Project>
+      <Name>CountdownClass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

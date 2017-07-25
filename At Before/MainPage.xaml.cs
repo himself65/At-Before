@@ -1,9 +1,10 @@
-﻿using At_Before.Sources;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -67,5 +68,39 @@ namespace At_Before
         {
 
         }
+
+        //
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.RegisterBackgroundTask();
+        }
+
+
+        private async void RegisterBackgroundTask()
+        {
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+            if (backgroundAccessStatus == BackgroundAccessStatus.AlwaysAllowed ||
+                backgroundAccessStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
+            {
+                foreach (var task in BackgroundTaskRegistration.AllTasks)
+                {
+                    if (task.Value.Name == taskName)
+                    {
+                        task.Value.Unregister(true);
+                    }
+                }
+
+                BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder()
+                {
+                    Name = taskName,
+                    TaskEntryPoint = taskEntryPoint
+                };
+                taskBuilder.SetTrigger(new TimeTrigger(15, false));
+                var registration = taskBuilder.Register();
+            }
+        }
+
+        private const string taskName = "BlogFeedBackgroundTask";
+        private const string taskEntryPoint = "BackgroundTasks.BlogFeedBackgroundTask";
     }
 }

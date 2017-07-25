@@ -5,9 +5,10 @@
     xmlns:local="using:At_Before.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:At_Before.Sources"
+    xmlns:data="using:CountdownClass"
     
     Loading="Page_Loading"
+    Unloaded="Page_Unloaded"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -27,7 +28,7 @@
                         Style="{StaticResource HambugerButton}"
                         ToolTipService.ToolTip="编辑"
                         Click="EditButton_Click"
-                        Visibility="Collapsed">
+                        Visibility="Visible">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE104;" />
                     <Button.Flyout>
                         <Flyout Placement="Bottom">
@@ -60,8 +61,8 @@
                                         </StackPanel>
                                         <CheckBox Name="ChangeInputTimeCheckBox"
                                                   Margin="0,0,10,0" Content="全天"
-                                                  Checked="InputTimeCheckBox_Checked"
-                                                  Unchecked="InputTimeCheckBox_Unchecked"/>
+                                                  Checked="ChangeInputTimeCheckBox_Checked"
+                                                  Unchecked="ChangeInputTimeCheckBox_Unchecked"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="3" Orientation="Horizontal">
                                         <TextBlock Text="类型：" Margin="0,0,10,0"/>
@@ -112,12 +113,8 @@
                 <!--更新控件，按下推送到磁贴-->
                 <Button Name="UpdateButton"
                     RelativePanel.LeftOf="InputButton"
-                        Click="UpdateButton_Click"
-                    Style="{StaticResource HambugerButton}" 
-                        ToolTipService.ToolTip="更新到磁贴">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" />
-                </Button>
-                
+                        Visibility="Collapsed"/>
+
                 <!--输入控件，按下可以添加提醒项-->
                 <Button Name="InputButton"
                         ToolTipService.ToolTip="添加倒计时"
@@ -144,7 +141,7 @@
                                          Text="" 
                                          Width="Auto" 
                                          TextChanged="InputTitleBox_TextChanged"/>
-                                        <TextBlock Name="JudgeInputTitleBox" Text="" Visibility="Collapsed" TextWrapping="Wrap"/>
+                                        <TextBlock Name="JudgeInputTitleBox" Text="标题不能为空" Visibility="Visible" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                                         <TextBlock Text="日期：" Margin="0,0,10,0"/>
@@ -215,8 +212,10 @@
                             <TextBlock Text="{x:Bind Date.Year}" Margin="0,0,5,0"/>
                             <TextBlock Text="{x:Bind Date.Month}" Margin="0,0,5,0"/>
                             <TextBlock Text="{x:Bind Date.Day}" Margin="0,0,10,0"/>
-                            <TextBlock Text="{x:Bind Classification._Case_cn}"/>
-                            <TextBlock Text="{x:Bind EndLine}"/>
+                            
+                            <TextBlock Text="还有："/>
+                            <TextBlock Text="{x:Bind EndLine.TotalDays}"/>
+                            <TextBlock Text="天"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
