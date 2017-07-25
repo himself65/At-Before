@@ -214,7 +214,7 @@
                             <TextBlock Text="{x:Bind Date.Day}" Margin="0,0,10,0"/>
                             
                             <TextBlock Text="还有："/>
-                            <TextBlock Text="{x:Bind EndLine.TotalDays}"/>
+                            <TextBlock Text="{x:Bind EndLineToStringOfDays}"/>
                             <TextBlock Text="天"/>
                         </StackPanel>
                     </DataTemplate>
