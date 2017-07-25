@@ -51,28 +51,5 @@ namespace At_Before.Pages
         {
             BackgroundTasks.BlogFeedBackgroundTask.RunNow();
         }
-
-        //private void PasswordToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        //{
-        //    //设置Flyout内容
-        //    if (PasswordToggleSwitch.IsOn == true)
-        //    {
-        //        Flyout f = new Flyout();
-        //        TextBlock HavenotFinished = new TextBlock()
-        //        {
-        //            Text = "暂未开发完成"
-        //        };
-        //        f.Content = HavenotFinished;
-        //        f.Placement = FlyoutPlacementMode.Bottom;
-        //        //显示未完成
-        //        f.ShowAt(PasswordToggleSwitch);
-        //        f.Closed += Flyout_Closed;
-        //    }
-        //}
-
-        //private void Flyout_Closed(object sender, object e)
-        //{
-        //    PasswordToggleSwitch.IsOn = false;
-        //}
     }
 }

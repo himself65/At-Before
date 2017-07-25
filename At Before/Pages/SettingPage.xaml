@@ -7,16 +7,39 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
     Unloaded="Page_UnLoad">
+    <Page.Resources>
+        <ResourceDictionary Source="/Style/MainDictionary.xaml"/>
+    </Page.Resources>
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <RelativePanel Grid.Row="0">
-            <TextBlock Name="TileQueueSettingTextblock" Text="是否循环显示倒计时（最多显示五张）" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <ToggleSwitch Name="PasswordToggleSwitch" RelativePanel.RightOf="TileQueueSettingTextblock"/>
-        </RelativePanel>
-        <Button Grid.Row="1" Content="Hello" Click="Button_Click"/>
+        <ListView Name="SettingListView" 
+                  Grid.Row="1" 
+                  SelectionMode="None">
+            <ListViewItem>
+                <StackPanel>
+                    <TextBlock Name="TileQueueSettingTextblock" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="10,0,10,0"
+                           Text="是否循环显示倒计时（最多显示五张" />
+                    <ToggleSwitch Name="PasswordToggleSwitch" RelativePanel.RightOf="TileQueueSettingTextblock"/>
+                </StackPanel>
+            </ListViewItem>
+            <HyperlinkButton
+                             RelativePanel.AlignBottomWithPanel="True"
+                             Margin="10,0,0,0">
+            </HyperlinkButton>
+        </ListView>
+        <Button Grid.Row="0" 
+                Click="Button_Click"
+                Style="{StaticResource HambugerButton}"
+                ToolTipService.ToolTip="立刻更新到磁贴">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" />
+        </Button>
     </Grid>
 </Page>
