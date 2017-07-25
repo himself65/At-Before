@@ -53,18 +53,6 @@ namespace CountdownClass
                         }
                         cacheCountdown.ID = Convert.ToInt32(item.Value.Name);
                         #endregion
-                        #region 其他
-                        ////将储存在setting里的内容转换为Countdown类
-                        //cacheCountdown = new Countdown()
-                        //{
-                        //    Title = (string)item.Value.Values["Title"],
-                        //    Date = (DateTimeOffset)item.Value.Values["Date"],
-                        //    Classification = new Classification((ClassificationCase)Enum.Parse(typeof(ClassificationCase), (string)item.Value.Values["ClassificationCase"])),
-                        //    ID = Convert.ToInt32(item.Value.Name),
-                        //    Repeat = new Repeat((RepeatCase)Enum.Parse(typeof(RepeatCase), (string)item.Value.Values["RepeatCase"])),
-                        //    AllDay = Boolean.Parse(item.Value.Values["AllDay"].ToString()),
-                        //};
-                        #endregion
                         Countdowns.Add(cacheCountdown);
                     }
                 }

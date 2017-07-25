@@ -1,0 +1,7 @@
+# 文件简介
+# At Before
+应用主题，包含应用页面（xaml）
+# BackgroundTask
+后台任务，每60分钟更新一次
+# CountdownClass
+数据部分,保存至ApplicationData.Current.LocalFolder下</br>
