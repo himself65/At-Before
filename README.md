@@ -12,9 +12,15 @@ UWP-倒计时应用</br>
 * 到达磁贴时间提醒
 * 本地化（时区、显示方式、翻译）
 
+# 截图
+
+![github](https://github.com/Himself65/At-Before/blob/master/README/README_Example_1.png "Example")
+</br>
+![github](https://github.com/Himself65/At-Before/blob/master/README/README_Example_2.png "Exmaple")
 
 
 # 联系
+Blog:http://Himself65.com</br>
 E-Mail:Himself65(himself6565@gmail.com)</br>
 
 
