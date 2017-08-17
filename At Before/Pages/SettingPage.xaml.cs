@@ -37,19 +37,15 @@ namespace At_Before.Pages
 
         private void DisplayOutPut()
         {
-            PasswordToggleSwitch.IsOn = (bool)localSettings.Values["testSetting"];
+            if (localSettings.Values.ContainsKey("textSetting"))
+                PasswordToggleSwitch.IsOn = (bool)localSettings.Values["testSetting"];
         }
 
 
-        private void Page_UnLoad(object sender, RoutedEventArgs e)
+        private void Page_UnLoaded(object sender, RoutedEventArgs e)
         {
             localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["testSetting"] = PasswordToggleSwitch.IsOn;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            BackgroundTasks.BlogFeedBackgroundTask.RunNow();
         }
     }
 }

@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="Countdown.cs" />
     <Compile Include="CountdownManage.cs" />
+    <Compile Include="CountdownSettingManage.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Countdown.rd.xml" />

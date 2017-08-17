@@ -5,79 +5,155 @@
     xmlns:local="using:At_Before"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:data="using:At_Before.Sources"
+    mc:Ignorable="d" 
+    SizeChanged="Page_SizeChanged">
 
     <Page.Resources>
         <ResourceDictionary Source="/Style/MainDictionary.xaml"/>
     </Page.Resources>
+    
+    <RelativePanel>
 
-    <Grid>
-        <SplitView Name="HambugerSplitView" 
-                   DisplayMode="CompactOverlay" 
-                   CompactPaneLength="60" 
-                   OpenPaneLength="400">
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup x:Name="AppSize">
+
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="770"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RightFrame.Visibility" Value="Visible"></Setter>
+                        <Setter Target="RightFrame.(RelativePanel.RightOf)" Value="LeftView"></Setter>
+                        <Setter Target="RightFrame.(RelativePanel.AlignTopWithPanel)" Value="True"/>
+                        <Setter Target="RightFrame.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
+                        <Setter Target="RightFrame.(RelativePanel.AlignRightWithPanel)" Value="True"/>
+                        <!--左右frame设置-->
+                        <Setter Target="LeftView.Visibility" Value="Visible"></Setter>
+                        <Setter Target="LeftView.Width" Value="450"></Setter>
+                        <Setter Target="LeftView.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
+                        <Setter Target="LeftView.(RelativePanel.AlignLeftWithPanel)" Value="True"/>
+                        <Setter Target="LeftView.(RelativePanel.AlignTopWithPanel)" Value="True"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--显示右侧内容-->
+                        <Setter Target="RightFrame.Visibility" Value="Collapsed"></Setter>
+                        <!--隐藏左侧内容-->
+                        <Setter Target="LeftView.Visibility" Value="Visible"></Setter>
+                        <!--拉伸左侧list，撑满页面-->
+                        <Setter Target="LeftView.(RelativePanel.AlignRightWithPanel)" Value="True"/>
+                        <Setter Target="LeftView.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
+                        <Setter Target="LeftView.(RelativePanel.AlignLeftWithPanel)" Value="True"/>
+                        <Setter Target="LeftView.(RelativePanel.AlignTopWithPanel)" Value="True"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SplitViewSetting">
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="770"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LeftView.DisplayMode" Value="CompactInline"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LeftView.DisplayMode" Value="CompactOverlay"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+        </VisualStateManager.VisualStateGroups>
+        <ToggleButton Name="HambugerButton" 
+                            Style="{StaticResource SplitViewTogglePaneButtonStyle}" 
+                            IsChecked="{Binding IsPaneOpen, ElementName=LeftView, Mode=TwoWay}"
+                            RelativePanel.AlignTopWithPanel="True" 
+                            RelativePanel.AlignLeftWithPanel="True" 
+                            Canvas.ZIndex="1"
+                            >
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
+
+        </ToggleButton>
+        <SplitView x:Name="LeftView" 
+                   OpenPaneLength="256"
+                   IsTabStop="False"
+                   >
             <SplitView.Pane>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <RelativePanel Grid.Row="0" >
-                            <Button Name="MenuButton"  Height="55" Width="60" Click="MenuButton_Click" RelativePanel.AlignLeftWithPanel="True" Margin="0,0,10,0">
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
-                            </Button>
-                            <TextBlock Name="MainShowBlock" Margin="5,0,0,0" Text="欢迎" RelativePanel.RightOf="MenuButton" RelativePanel.AlignVerticalCenterWith="MenuButton"/>
-                        </RelativePanel>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <ListBox Name="MenuList" SelectionChanged="MenuList_SelectionChanged">
-
-                            <ListBoxItem Name="AboutMe" Visibility="Collapsed">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Style="{StaticResource IconStyle}" 
-                                              Glyph="&#xE13D;" 
-                                              Margin="5,0,30,0"/>
-                                    <TextBlock Text="我的"/>
-                                </StackPanel>
-                            </ListBoxItem>
-                            
-                            <ListBoxItem Name="Home">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Style="{StaticResource IconStyle}"
-                                              Glyph="&#xE10F;" 
-                                              Margin="5,0,30,0"/>
-                                    <TextBlock Text="主页"/>
-                                </StackPanel>
-                            </ListBoxItem>
-
-                        </ListBox>
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <ListBox x:Name="SettingList">
-                            <ListBoxItem x:Name="SettingItem" Tapped="SettingItem_Tapped">
+                <RelativePanel Name="RelativePannel" >
+                    <ListView Name="HambugerListView" ItemsSource="{x:Bind HambugerViewItems}" 
+                              RelativePanel.AlignTopWithPanel="True"
+                              RelativePanel.AlignLeftWithPanel="True"
+                              RelativePanel.AlignRightWithPanel="True"
+                              RelativePanel.Above="SettingListView"
+                              SelectionChanged="HambugerListView_SelectionChanged"
+                              Margin="0,48,0,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:HambugerItem">
                                 <RelativePanel>
-                                    <FontIcon Style="{StaticResource IconStyle}" 
-                                              Name="SettingIcon" 
-                                              Glyph="&#xE115;" 
-                                              Margin="5,0,10,0"/>
-                                    <TextBlock Text="设置" RelativePanel.RightOf="SettingIcon" Margin="20,0,0,0"/>
+                                    <FontIcon Name="ItemIcon" 
+                                              FontFamily="Segoe MDL2 Assets" 
+                                              Glyph="{x:Bind Icon}" 
+                                              Margin="0,0,20,0"
+                                              RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                                    <TextBlock Text="{x:Bind Title}" 
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               RelativePanel.RightOf="ItemIcon"/>
                                 </RelativePanel>
-                            </ListBoxItem>
-                        </ListBox>
-                    </Grid>
-                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ListView Name="SettingListView" 
+                              RelativePanel.AlignLeftWithPanel="True"
+                              RelativePanel.AlignRightWithPanel="True"
+                              RelativePanel.AlignBottomWithPanel="True"
+                              SelectionChanged="SettingListView_SelectionChanged"
+                              ItemsSource="{x:Bind SettingViewItems}">
+                        <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:HambugerItem">
+                                <RelativePanel>
+                                    <FontIcon Name="ItemIcon" 
+                                              FontFamily="Segoe MDL2 Assets" 
+                                              Glyph="{x:Bind Icon}" 
+                                              Margin="0,0,20,0"
+                                              RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                                    <TextBlock Text="{x:Bind Title}" 
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               RelativePanel.RightOf="ItemIcon"/>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RelativePanel>
             </SplitView.Pane>
 
-            <!--主要视图-->
             <SplitView.Content>
-                <Frame Name="FirstFrame" />
+                <Frame Name="InViewFrame"/>
             </SplitView.Content>
         </SplitView>
-    </Grid>
+        
+        <Frame Name="RightFrame"/>
+    </RelativePanel>
+
 </Page>

@@ -5,8 +5,8 @@
     xmlns:local="using:At_Before.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" 
-    Unloaded="Page_UnLoad">
+    mc:Ignorable="d"
+    Unloaded="Page_UnLoaded">
     <Page.Resources>
         <ResourceDictionary Source="/Style/MainDictionary.xaml"/>
     </Page.Resources>
@@ -26,20 +26,14 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Margin="0,0,10,0"
-                           Text="是否循环显示倒计时（最多显示五张" />
-                    <ToggleSwitch Name="PasswordToggleSwitch" RelativePanel.RightOf="TileQueueSettingTextblock"/>
+                           Text="磁贴是否循环显示五张倒数日（最多显示五张）" />
+                    <ToggleSwitch Name="PasswordToggleSwitch"
+                                  RelativePanel.RightOf="TileQueueSettingTextblock"/>
                 </StackPanel>
             </ListViewItem>
-            <HyperlinkButton
-                             RelativePanel.AlignBottomWithPanel="True"
-                             Margin="10,0,0,0">
-            </HyperlinkButton>
         </ListView>
-        <Button Grid.Row="0" 
-                Click="Button_Click"
-                Style="{StaticResource HambugerButton}"
-                ToolTipService.ToolTip="立刻更新到磁贴">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" />
-        </Button>
     </Grid>
 </Page>
+
+    
+    

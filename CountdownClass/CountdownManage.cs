@@ -100,6 +100,33 @@ namespace CountdownClass
             throw new Exception();
         }
 
+        /// <summary>
+        /// 将新的countdown保存到本地
+        /// 保存到最后
+        /// </summary>
+        /// <param name="countdown"></param>
+        public static void SaveToLocal(Countdown countdown)
+        {
+            //localSettings保存位置
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+
+            ApplicationDataContainer CountdownsSettings = localSettings.CreateContainer("Data", ApplicationDataCreateDisposition.Always);
+            if (localSettings.Containers.ContainsKey("Data"))
+            {
+                var Length = CountdownsSettings.Containers.Count;
+                var CountdownSettings = CountdownsSettings.CreateContainer(countdown.ID.ToString(), ApplicationDataCreateDisposition.Always);
+                CountdownsSettings.Containers.ContainsKey(countdown.ID.ToString());
+
+                CountdownSettings.Values["Title"] = countdown.Title;
+                CountdownSettings.Values["Date"] = countdown.Date;
+                CountdownSettings.Values["ClassificationCase"] = countdown.Classification._Case;
+                CountdownSettings.Values["RepeatCase"] = countdown.Repeat._Case;
+                CountdownSettings.Values["AllDay"] = countdown.AllDay.ToString();
+            }
+            return;
+        }
 
         /// <summary>
         /// 
@@ -154,6 +181,14 @@ namespace CountdownClass
                 else
                     throw new NullReferenceException();
             }
+        }
+        public static void DeleteCountdownFromList(int DeleteItemIndex)
+        {
+            var items = GetCountdowns();
+            if (DeleteItemIndex < 0 || DeleteItemIndex >= items.Count)
+                throw new ArgumentOutOfRangeException();
+            items.RemoveAt(DeleteItemIndex);
+            SaveCountdowns(items);
         }
 
         /// <summary>

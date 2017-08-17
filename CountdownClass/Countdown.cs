@@ -8,13 +8,30 @@ namespace CountdownClass
 {
     public class Countdown
     {
+        // ID
+        // 说明：数据存储至本地使用
         public int ID { get; set; }
+        // Title
+        // 倒数日的标题
         public string Title { get; set; }
+        // Date
+        // 倒数日的日期
         public DateTimeOffset Date { get; set; }
+        // AllDay
+        // 是否为全天事件
         public bool AllDay { get; set; }
+        // 倒计时类型
+        // 事件、爱情、工作等
         public Classification Classification { get; set; }
+        // 重复类型
+        //
         public Repeat Repeat { get; set; }
+        // 间隔时刻
+        // 当前时间减去Date时间
         public TimeSpan EndLine { get => Date - DateTimeOffset.Now; }
+
+        // 将EndLine转化成各种内容
+        public string DateToString { get => Date.ToString("yyy-MM-dd hh:mm"); }
         public double EndLineToDays { get => (Date - DateTimeOffset.Now).TotalDays; }
         public string EndLineToStringOfDays { get => ToStringOfDays(EndLineToDays); }
 
@@ -34,7 +51,7 @@ namespace CountdownClass
                 Content = "大约" + (int)Days;
             }
 
-            return Content;
+            return Content + "天";
         }
     }
     public class Classification

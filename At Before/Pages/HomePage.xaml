@@ -23,12 +23,19 @@
         <StackPanel Grid.Row="0"
             Orientation="Vertical">
             <RelativePanel>
+                <Button Name="UpdateButton" Grid.Row="0" 
+                        RelativePanel.AlignLeftWithPanel="True"
+                Click="UpdateButton_Click"
+                Style="{StaticResource HambugerButton}"
+                ToolTipService.ToolTip="立刻更新到磁贴">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" />
+                </Button>
                 <Button Name="EditButton"
-                        RelativePanel.LeftOf="UpdateButton" 
                         Style="{StaticResource HambugerButton}"
                         ToolTipService.ToolTip="编辑"
                         Click="EditButton_Click"
-                        Visibility="Visible">
+                        RelativePanel.LeftOf="InputButton"
+                        Visibility="Collapsed">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE104;" />
                     <Button.Flyout>
                         <Flyout Placement="Bottom">
@@ -62,7 +69,9 @@
                                         <CheckBox Name="ChangeInputTimeCheckBox"
                                                   Margin="0,0,10,0" Content="全天"
                                                   Checked="ChangeInputTimeCheckBox_Checked"
-                                                  Unchecked="ChangeInputTimeCheckBox_Unchecked"/>
+                                                  Unchecked="ChangeInputTimeCheckBox_Unchecked"
+                                                  Visibility="Collapsed"/>
+                                        <!--标记-->
                                     </StackPanel>
                                     <StackPanel Grid.Row="3" Orientation="Horizontal">
                                         <TextBlock Text="类型：" Margin="0,0,10,0"/>
@@ -76,7 +85,7 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal" Visibility="Collapsed">
                                         <TextBlock Text="重复：" Margin="0,0,10,0"/>
                                         <ComboBox Name="ChangeInputRepeatCaseBox"
                                                   Width="250"
@@ -110,11 +119,6 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <!--更新控件，按下推送到磁贴-->
-                <Button Name="UpdateButton"
-                    RelativePanel.LeftOf="InputButton"
-                        Visibility="Collapsed"/>
-
                 <!--输入控件，按下可以添加提醒项-->
                 <Button Name="InputButton"
                         ToolTipService.ToolTip="添加倒计时"
@@ -155,7 +159,8 @@
                                         <CheckBox Name="InputTimeCheckBox"
                                                   Margin="0,0,10,0" Content="全天"
                                                   Checked="InputTimeCheckBox_Checked"
-                                                  Unchecked="InputTimeCheckBox_Unchecked"/>
+                                                  Unchecked="InputTimeCheckBox_Unchecked"
+                                                  Visibility="Collapsed"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="3" Orientation="Horizontal">
                                         <TextBlock Text="类型：" Margin="0,0,10,0"/>
@@ -169,7 +174,7 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal" Visibility="Collapsed">
                                         <TextBlock Text="重复：" Margin="0,0,10,0"/>
                                         <ComboBox Name="InputRepeatCaseBox"
                                                   Width="250"
@@ -207,13 +212,10 @@
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Countdown">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" RightTapped="StackPanel_RightTapped">
                             <TextBlock Text="{x:Bind Title}" Margin="0,0,20,0"/>
-                            <TextBlock Text="{x:Bind Date.Year}" Margin="0,0,5,0"/>
-                            <TextBlock Text="{x:Bind Date.Month}" Margin="0,0,5,0"/>
-                            <TextBlock Text="{x:Bind Date.Day}" Margin="0,0,10,0"/>
-                            
-                            <TextBlock Text="还有："/>
+                            <TextBlock Text="{x:Bind DateToString}" Margin="0,0,10,0"/>
+                            <TextBlock Text="还有约"/>
                             <TextBlock Text="{x:Bind EndLineToStringOfDays}"/>
                             <TextBlock Text="天"/>
                         </StackPanel>

@@ -58,7 +58,6 @@ namespace BackgroundTasks
             var updater = TileUpdateManager.CreateTileUpdaterForApplication();
             updater.EnableNotificationQueue(true);
 
-
             foreach (var item in Countdowns)
             {
                 string Title = item.Title;
@@ -86,7 +85,7 @@ namespace BackgroundTasks
                         EndLine = "已经过去很长时间";
                     }
                 }
-                
+
                 //
                 var tileContent = new TileContent()
                 {
@@ -131,7 +130,8 @@ namespace BackgroundTasks
                     new AdaptiveText()
                     {
                         Text = EndLine,
-                        HintStyle = AdaptiveTextStyle.Base
+                        HintStyle = AdaptiveTextStyle.Base,
+                        HintWrap = true
                     }
                 }
                             }
@@ -156,7 +156,8 @@ namespace BackgroundTasks
                     new AdaptiveText()
                     {
                         Text = EndLine,
-                        HintStyle = AdaptiveTextStyle.Title
+                        HintStyle = AdaptiveTextStyle.Title,
+                        HintWrap = true,
                     }
                 }
                             }
@@ -190,7 +191,8 @@ namespace BackgroundTasks
                                     new AdaptiveText()
                                     {
                                         Text = EndLine,
-                                        HintStyle = AdaptiveTextStyle.Title
+                                        HintStyle = AdaptiveTextStyle.Title,
+                                        HintWrap = true
                                     }
                                 }
                             }

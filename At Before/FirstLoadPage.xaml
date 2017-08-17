@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="At_Before.FirstLoadPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:At_Before"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded">
+
+    <RelativePanel>
+        <FlipView RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignTopWithPanel="True"
+                  RelativePanel.AlignBottomWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  IsTabStop="True">
+            <FlipViewItem>
+                <RelativePanel Background="#FF4E88B4" >
+                    <TextBlock Text="Version1.1版本到来" 
+                               Foreground="WhiteSmoke"
+                               FontSize="25"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                               RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                </RelativePanel>
+            </FlipViewItem>
+            <FlipViewItem>
+                <RelativePanel  Background="#FF2B5F84">
+                    <TextBlock Foreground="WhiteSmoke"
+                               RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                               RelativePanel.AlignVerticalCenterWithPanel="True">
+                        <Run>更新：</Run><LineBreak/><LineBreak/>
+                        
+                        <Run>自适应内容</Run><LineBreak/>
+                        <Run>磁贴刷新方式更新</Run>
+                    </TextBlock>
+                </RelativePanel>
+            </FlipViewItem>
+            <FlipViewItem Background="#FF32536C">
+                <RelativePanel>
+                    <TextBlock  Foreground="WhiteSmoke"
+                        Text="不要着急店确定，以后就没了" 
+                               RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                               RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                    <Button Width="60" Height="45" Content="开始" Click="Button_Click" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/>
+                </RelativePanel>
+            </FlipViewItem>
+        </FlipView>
+    </RelativePanel>
+</Page>

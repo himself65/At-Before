@@ -46,8 +46,9 @@ namespace At_Before.Pages
         {
             //页面加载是读取CountdownList
             CountdownList = CountdownManage.GetCountdowns();
+            EditButton.Visibility = Visibility.Collapsed;
         }
-#endregion
+        #endregion
 
 
         // 用户点下确定输入的按键
@@ -176,6 +177,7 @@ namespace At_Before.Pages
             ChangeInputDatePicker.Date = Item.Date;
             ChangeInputTimePicker.Time = Item.Date.Offset;
             ChangeInputTitleBox.Text = Item.Title;
+            ChangeInputTimePicker.Time = Item.Date.TimeOfDay;
             ChangeInputTimeCheckBox.IsChecked = Item.AllDay;
             ChangeInputClassIficationBox.SelectedIndex = (int)Item.Classification.Case;
             ChangeInputRepeatCaseBox.SelectedIndex = (int)Item.Repeat.Case; 
@@ -193,7 +195,7 @@ namespace At_Before.Pages
             Countdown NewOne = new Countdown()
             {
                 ID = CountdownList[OutputListView.SelectedIndex].ID,
-                Date = ChangeInputDatePicker.Date + ChangeInputTimePicker.Time,
+                Date = ChangeInputDatePicker.Date.Date + ChangeInputTimePicker.Time,
                 Title = ChangeInputTitleBox.Text,
                 Classification = (Classification)ChangeInputClassIficationBox.SelectedItem,
                 Repeat = (Repeat)ChangeInputRepeatCaseBox.SelectedItem,
@@ -250,6 +252,14 @@ namespace At_Before.Pages
             CountdownManage.SaveCountdowns(CountdownList);
         }
 
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundTasks.BlogFeedBackgroundTask.RunNow();
+        }
 
+        private void StackPanel_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+
+        }
     }
 }
